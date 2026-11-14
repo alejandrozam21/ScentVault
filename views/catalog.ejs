@@ -1,0 +1,48 @@
+<%- include("partials/header") %>
+
+<main class="catalog-page">
+  <h1>Fragrance Catalog</h1>
+  <p>Discover fragrances from some of the world's most popular brands.</p>
+
+  <form action="/catalog" method="GET" class="filter-form">
+    <label for="brand">Filter by brand:</label>
+
+    <select name="brand" id="brand">
+      <option value="">All Brands</option>
+
+      <% brands.forEach(brand => { %>
+        <option
+          value="<%= brand.brandID %>"
+          <%= String(selectedBrand) === String(brand.brandID) ? "selected" : "" %>
+        >
+          <%= brand.name %>
+        </option>
+      <% }) %>
+    </select>
+
+    <button type="submit">Filter</button>
+  </form>
+
+  <div class="fragrance-grid">
+    <% fragrances.forEach(fragrance => { %>
+      <div class="fragrance-card">
+        <h2><%= fragrance.name %></h2>
+
+        <p>
+          <strong>Brand:</strong>
+          <%= brands.find(brand => brand.brandID === fragrance.brandID)?.name || "Unknown" %>
+        </p>
+
+        <p><strong>Concentration:</strong> <%= fragrance.concentration %></p>
+
+        <p><strong>Notes:</strong> <%= fragrance.notes.join(", ") %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <% if (fragrances.length === 0) { %>
+    <p>No fragrances found for this brand.</p>
+  <% } %>
+</main>
+
+<%- include("partials/footer") %>

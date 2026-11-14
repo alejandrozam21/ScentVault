@@ -1,0 +1,113 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111318;
+  color: #f5f5f5;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: #1c2028;
+}
+
+.logo {
+  color: #d9b56d;
+  font-size: 26px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #d9b56d;
+}
+
+.hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  color: #d9b56d;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #c5c5c5;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1c2028;
+}
+
+.catalog-page {
+  padding: 50px 8%;
+  min-height: 75vh;
+}
+
+.catalog-page h1 {
+  color: #d9b56d;
+  font-size: 36px;
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 30px 0;
+}
+
+.filter-form select,
+.filter-form button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #d9b56d;
+}
+
+.filter-form button {
+  background: #d9b56d;
+  color: #111318;
+  cursor: pointer;
+}
+
+.fragrance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.fragrance-card {
+  padding: 25px;
+  background: #1c2028;
+  border: 1px solid #343944;
+  border-radius: 10px;
+}
+
+.fragrance-card h2 {
+  color: #d9b56d;
+}
+
+.fragrance-card p {
+  line-height: 1.6;
+}
