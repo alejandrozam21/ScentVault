@@ -243,3 +243,71 @@ footer {
 .error-message {
   color: #ff7777;
 }
+
+.remove-form {
+  margin-top: 15px;
+}
+
+.remove-button {
+  background: #a83232;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background: #d04444;
+}
+
+.details-card form {
+  margin-top: 25px;
+}
+
+.details-card button.details-button {
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.reviews-section {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #1c2028;
+  border-radius: 12px;
+}
+
+.reviews-section h2,
+.reviews-section h3 {
+  color: #d9b56d;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.review-form select,
+.review-form textarea {
+  padding: 12px;
+  background: #111318;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.review-card {
+  padding: 20px;
+  margin: 15px 0;
+  background: #111318;
+  border-radius: 8px;
+}
+
+.review-stars {
+  color: #d9b56d;
+  font-size: 22px;
+}

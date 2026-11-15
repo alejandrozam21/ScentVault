@@ -1,0 +1,62 @@
+<%- include("partials/header") %>
+
+<main class="catalog-page">
+  <h1>My Fragrance Collection</h1>
+
+  <p>
+    Manage the fragrances you've saved to your ScentVault.
+  </p>
+
+  <p>
+    <%= collection.length %> fragrances in your collection
+  </p>
+
+  <% if (collection.length === 0) { %>
+    <p>Your collection is currently empty.</p>
+    <a href="/catalog" class="details-button">
+      Explore Fragrances
+    </a>
+  <% } else { %>
+
+    <div class="fragrance-grid">
+
+      <% collection.forEach(item => { %>
+        <div class="fragrance-card">
+
+          <h2><%= item.fragrance.name %></h2>
+
+          <p>
+            <strong>Brand:</strong>
+            <%= item.fragrance.brand %>
+          </p>
+
+          <p>
+            <strong>Concentration:</strong>
+            <%= item.fragrance.concentration %>
+          </p>
+
+          <a
+            href="/fragrance/<%= encodeURIComponent(item.fragranceID) %>"
+            class="details-button"
+          >
+            View Details
+          </a>
+
+          <form
+            action="/collection/remove/<%= item.collectionID %>"
+            method="POST"
+            class="remove-form"
+          >
+            <button type="submit" class="remove-button">
+              Remove from Collection
+            </button>
+          </form>
+
+        </div>
+      <% }) %>
+
+    </div>
+  <% } %>
+</main>
+
+<%- include("partials/footer") %>

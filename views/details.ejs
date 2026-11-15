@@ -34,7 +34,97 @@
     <h3>Description</h3>
     <p><%= fragrance.description || "No description available." %></p>
 
+
+    <% if (currentUser) { %>
+
+      <form
+        action="/collection/add/<%= encodeURIComponent(fragrance.fragranceID) %>"
+        method="POST"
+      >
+        <button type="submit" class="details-button">
+          Add to My Collection
+        </button>
+      </form>
+
+    <% } else { %>
+
+      <p>
+        <a href="/login" class="details-button">
+          Login to Save This Fragrance
+        </a>
+      </p>
+
+    <% } %>
+
   </div>
+  <section class="reviews-section" id="reviews">
+    <h2>Community Reviews</h2>
+
+    <% if (averageRating !== null) { %>
+      <h3>
+        <%= averageRating %> / 5 Stars
+      </h3>
+      <p>Based on <%= reviews.length %> reviews</p>
+    <% } else { %>
+      <p>No ratings yet. Be the first to review!</p>
+    <% } %>
+
+    <% if (currentUser) { %>
+      <h3>
+        <%= userReview ? "Update Your Review" : "Write a Review" %>
+      </h3>
+
+      <form
+        action="/fragrance/<%= encodeURIComponent(fragrance.fragranceID) %>/review"
+        method="POST"
+        class="review-form"
+      >
+        <label for="rating">Your Rating</label>
+
+        <select id="rating" name="rating" required>
+          <% for (let stars = 1; stars <= 5; stars++) { %>
+            <option
+              value="<%= stars %>"
+              <%= userReview && userReview.rating === stars
+                ? "selected" : "" %>
+            >
+              <%= stars %> Star<%= stars === 1 ? "" : "s" %>
+            </option>
+          <% } %>
+        </select>
+
+        <label for="comment">Your Review</label>
+
+        <textarea
+          id="comment"
+          name="comment"
+          rows="5"
+          maxlength="1000"
+          required
+        ><%= userReview ? userReview.comment : "" %></textarea>
+
+        <button type="submit" class="details-button">
+          <%= userReview ? "Update Review" : "Submit Review" %>
+        </button>
+      </form>
+    <% } else { %>
+      <p><a href="/login">Log in to write a review</a></p>
+    <% } %>
+
+    <h3>All Reviews</h3>
+
+    <% reviews.forEach(review => { %>
+      <div class="review-card">
+        <strong><%= review.userName %></strong>
+
+        <p class="review-stars">
+          <%= "★".repeat(review.rating) %><%= "☆".repeat(5 - review.rating) %>
+        </p>
+
+        <p><%= review.comment %></p>
+      </div>
+    <% }) %>
+  </section>
 </main>
 
 <%- include("partials/footer") %>

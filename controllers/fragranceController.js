@@ -1,4 +1,6 @@
 const fragranceService = require("../services/fragranceService");
+const reviewService = require("../services/reviewService");
+const userService = require("../services/userService");
 
 // Display fragrance catalog
 exports.getCatalog = (req, res) => {
@@ -31,8 +33,31 @@ exports.getFragranceDetails = (req, res) => {
     return res.status(404).send("Fragrance not found");
   }
 
+  const reviews = reviewService
+    .getReviews(fragrance.fragranceID)
+    .map(review => ({
+      ...review,
+      userName:
+        userService.getUserById(review.userID)?.name ||
+        "Unknown User"
+    }));
+
+  const averageRating = reviewService.getAverageRating(
+    fragrance.fragranceID
+  );
+
+  const userReview = req.session.userID
+    ? reviewService.getUserReview(
+        req.session.userID,
+        fragrance.fragranceID
+      )
+    : null;
+
   res.render("details", {
     title: `ScentVault | ${fragrance.name}`,
-    fragrance
+    fragrance,
+    reviews,
+    averageRating,
+    userReview
   });
 };

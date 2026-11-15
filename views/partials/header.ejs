@@ -15,6 +15,7 @@
         <a href="/catalog">Catalog</a>
 
         <% if (currentUser) { %>
+          <a href="/collection">My Collection</a>
           <span>Welcome, <%= currentUser.name %></span>
 
           <form action="/logout" method="POST" class="logout-form">

@@ -7,6 +7,8 @@ const path = require("path");
 const helmet = require("helmet");
 const fragranceRoutes = require("./routes/fragranceRoutes");
 const pageRoutes = require("./routes/pageRoutes");
+const collectionRoutes = require("./routes/collectionRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 const app = express();
 const PORT = 3000;
 
@@ -29,6 +31,7 @@ app.use(session({
     secure: false
   }
 }));
+app.use("/", reviewRoutes);
 
 // Make the logged-in user available to EJS pages
 app.use((req, res, next) => {
@@ -43,6 +46,7 @@ app.use((req, res, next) => {
 app.use("/", pageRoutes);
 app.use("/", fragranceRoutes);
 app.use("/", authRoutes);
+app.use("/", collectionRoutes);
 
 // Start server
 app.listen(PORT, () => {
