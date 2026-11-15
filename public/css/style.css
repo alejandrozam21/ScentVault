@@ -111,3 +111,135 @@ footer {
 .fragrance-card p {
   line-height: 1.6;
 }
+
+/* Search bar */
+.filter-form input {
+  padding: 10px 15px;
+  border: 1px solid #d9b56d;
+  border-radius: 5px;
+  min-width: 250px;
+}
+
+/* Details button */
+.details-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #d9b56d;
+  color: #111318;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.details-button:hover {
+  background: #f0cc85;
+}
+
+/* Fragrance details page */
+.details-page {
+  padding: 50px 8%;
+  min-height: 75vh;
+}
+
+.back-link {
+  color: #d9b56d;
+  text-decoration: none;
+}
+
+.details-card {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 35px;
+  background: #1c2028;
+  border: 1px solid #343944;
+  border-radius: 12px;
+}
+
+.details-card h1 {
+  color: #d9b56d;
+  font-size: 38px;
+}
+
+.details-card h2 {
+  color: #c5c5c5;
+}
+
+.details-card h3 {
+  color: #d9b56d;
+  margin-top: 30px;
+}
+
+.details-card p {
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-form input {
+    min-width: 0;
+  }
+
+  .details-card {
+    padding: 20px;
+  }
+}
+
+.auth-page {
+  max-width: 480px;
+  min-height: 75vh;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.auth-page h1 {
+  color: #d9b56d;
+}
+
+.auth-page a {
+  color: #d9b56d;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.auth-form input {
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.auth-form button,
+.logout-form button {
+  padding: 12px;
+  background: #d9b56d;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links a {
+  margin-left: 0;
+}
+
+.logout-form {
+  margin: 0;
+}
+
+.error-message {
+  color: #ff7777;
+}

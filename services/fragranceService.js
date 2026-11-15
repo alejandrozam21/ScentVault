@@ -39,14 +39,29 @@ const brands = Array.from(
 ).sort((a, b) => a.name.localeCompare(b.name));
 
 // Get fragrances, optionally filtering by brand
-function getAllFragrances(brandID) {
-  if (!brandID) {
-    return fragrances;
+
+function getAllFragrances(brandID, search = "") {
+  let results = fragrances;
+
+  // Filter by brand
+  if (brandID) {
+    results = results.filter(
+      fragrance =>
+        String(fragrance.brandID) === String(brandID)
+    );
   }
 
-  return fragrances.filter(
-    fragrance => String(fragrance.brandID) === String(brandID)
-  );
+  // Search by fragrance name or brand
+  if (search) {
+    const searchTerm = search.toLowerCase().trim();
+
+    results = results.filter(fragrance =>
+      fragrance.name.toLowerCase().includes(searchTerm) ||
+      fragrance.brand.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  return results;
 }
 
 // Return available brands

@@ -1,0 +1,40 @@
+<%- include("partials/header") %>
+
+<main class="details-page">
+
+  <a href="/catalog" class="back-link">
+    Back to Catalog
+  </a>
+
+  <div class="details-card">
+
+    <h1><%= fragrance.name %></h1>
+
+    <h2><%= fragrance.brand %></h2>
+
+    <p>
+      <strong>Concentration:</strong>
+      <%= fragrance.concentration %>
+    </p>
+
+    <p>
+      <strong>Fragrance Family:</strong>
+      <%= fragrance.family %>
+    </p>
+
+    <h3>Top Notes</h3>
+    <p><%= fragrance.topNotes.join(", ") || "Not available" %></p>
+
+    <h3>Heart Notes</h3>
+    <p><%= fragrance.heartNotes.join(", ") || "Not available" %></p>
+
+    <h3>Base Notes</h3>
+    <p><%= fragrance.baseNotes.join(", ") || "Not available" %></p>
+
+    <h3>Description</h3>
+    <p><%= fragrance.description || "No description available." %></p>
+
+  </div>
+</main>
+
+<%- include("partials/footer") %>

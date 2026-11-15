@@ -2,10 +2,16 @@
 
 <main class="catalog-page">
   <h1>Fragrance Catalog</h1>
-  <p>Discover fragrances from some of the world's most popular brands.</p>
+  <p>Discover and explore your favorite fragrances.</p>
 
   <form action="/catalog" method="GET" class="filter-form">
-    <label for="brand">Filter by brand:</label>
+
+    <input
+      type="text"
+      name="search"
+      placeholder="Search fragrances..."
+      value="<%= search %>"
+    >
 
     <select name="brand" id="brand">
       <option value="">All Brands</option>
@@ -13,35 +19,50 @@
       <% brands.forEach(brand => { %>
         <option
           value="<%= brand.brandID %>"
-          <%= String(selectedBrand) === String(brand.brandID) ? "selected" : "" %>
+          <%= String(selectedBrand) === String(brand.brandID)
+            ? "selected" : "" %>
         >
           <%= brand.name %>
         </option>
       <% }) %>
     </select>
 
-    <button type="submit">Filter</button>
+    <button type="submit">Search</button>
   </form>
+
+  <p><%= fragrances.length %> fragrances found</p>
 
   <div class="fragrance-grid">
     <% fragrances.forEach(fragrance => { %>
       <div class="fragrance-card">
+
         <h2><%= fragrance.name %></h2>
 
+        <p><strong>Brand:</strong> <%= fragrance.brand %></p>
+
         <p>
-          <strong>Brand:</strong>
-          <%= brands.find(brand => brand.brandID === fragrance.brandID)?.name || "Unknown" %>
+          <strong>Concentration:</strong>
+          <%= fragrance.concentration %>
         </p>
 
-        <p><strong>Concentration:</strong> <%= fragrance.concentration %></p>
+        <p>
+          <strong>Notes:</strong>
+          <%= fragrance.notes.join(", ") %>
+        </p>
 
-        <p><strong>Notes:</strong> <%= fragrance.notes.join(", ") %></p>
+        <a
+          href="/fragrance/<%= encodeURIComponent(fragrance.fragranceID) %>"
+          class="details-button"
+        >
+          View Details
+        </a>
+
       </div>
     <% }) %>
   </div>
 
   <% if (fragrances.length === 0) { %>
-    <p>No fragrances found for this brand.</p>
+    <p>No fragrances match your search.</p>
   <% } %>
 </main>
 

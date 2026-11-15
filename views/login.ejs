@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+
+<main class="auth-page">
+  <h1>Welcome Back</h1>
+  <p>Log in to your ScentVault account.</p>
+
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+
+  <form action="/login" method="POST" class="auth-form">
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" required>
+
+    <label for="password">Password</label>
+    <input id="password" type="password" name="password" required>
+
+    <button type="submit">Log In</button>
+  </form>
+
+  <p>Don't have an account? <a href="/register">Register</a></p>
+</main>
+
+<%- include("partials/footer") %>

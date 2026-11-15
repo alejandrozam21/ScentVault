@@ -13,6 +13,17 @@
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/catalog">Catalog</a>
+
+        <% if (currentUser) { %>
+          <span>Welcome, <%= currentUser.name %></span>
+
+          <form action="/logout" method="POST" class="logout-form">
+            <button type="submit">Logout</button>
+          </form>
+        <% } else { %>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+        <% } %>
       </div>
     </nav>
   </header>
