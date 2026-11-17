@@ -34,9 +34,15 @@ exports.register = async (req, res) => {
     req.session.userID = user.userID;
     res.redirect("/");
   } catch (error) {
-    res.status(400).render("register", {
+    if (error.message === "Email is already registered") {
+      return res.status(400).render("register", {
+        title: "ScentVault | Register",
+        error: error.message
+      });
+    }
+    console.error("Registration Error:", error);
+    res.status(500).render("register", {
       title: "ScentVault | Register",
-      error: error.message
     });
   }
 };
@@ -48,7 +54,7 @@ exports.showLogin = (req, res) => {
   });
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -72,20 +78,19 @@ exports.login = async (req, res) => {
     }
 
     req.session.regenerate(error => {
-      if (error) return res.status(500).send("Login failed");
+      if (error) return next(error);
 
       req.session.userID = user.userID;
       res.redirect("/");
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("An error occurred during login.");
+    next(error);
   }
 };
 
-exports.logout = (req, res) => {
+exports.logout = (req, res, next) => {
   req.session.destroy(error => {
-    if (error) return res.status(500).send("Logout failed");
+    if (error) return next(error);
 
     res.clearCookie("connect.sid");
     res.redirect("/login");

@@ -1,49 +1,56 @@
 const fs = require("fs");
 const path = require("path");
 
-const filePath = path.join(__dirname, "../data/perfumes.jsonl");
+// Object type 1: Brand
+class Brand {
+  constructor(brandID, name, country = "Not specified") {
+    this.brandID = brandID;
+    this.name = name;
+    this.country = country;
+  }
+}
 
-// Read the fragrance dataset
+// Object type 2: Fragrance
+class Fragrance {
+  constructor(perfume) {
+    this.fragranceID = perfume.id;
+    this.name = perfume.name;
+    this.brandID = perfume.house_id;
+    this.brand = perfume.house;
+    this.notes = perfume.notes || [];
+    this.topNotes = perfume.top_notes || [];
+    this.heartNotes = perfume.heart_notes || [];
+    this.baseNotes = perfume.base_notes || [];
+    this.concentration = perfume.concentration || "Not specified";
+    this.family = perfume.family || "Not specified";
+    this.description = perfume.description || "";
+  }
+}
+
+// Read the existing fragrance dataset
+const filePath = path.join(__dirname, "../data/perfumes.jsonl");
 const fileContent = fs.readFileSync(filePath, "utf8");
 
-// Convert each JSONL line into a JavaScript object
+// Create Fragrance instances
 const fragrances = fileContent
   .split(/\r?\n/)
   .filter(line => line.trim() !== "")
-  .map(line => JSON.parse(line))
-  .map(perfume => ({
-    fragranceID: perfume.id,
-    name: perfume.name,
-    brandID: perfume.house_id,
-    brand: perfume.house,
-    notes: perfume.notes || [],
-    topNotes: perfume.top_notes || [],
-    heartNotes: perfume.heart_notes || [],
-    baseNotes: perfume.base_notes || [],
-    concentration: perfume.concentration || "Not specified",
-    family: perfume.family || "Not specified",
-    description: perfume.description || ""
-  }));
+  .map(line => new Fragrance(JSON.parse(line)));
 
-// Create a unique brand list
+// Create unique Brand instances
 const brands = Array.from(
   new Map(
     fragrances.map(fragrance => [
       fragrance.brandID,
-      {
-        brandID: fragrance.brandID,
-        name: fragrance.brand
-      }
+      new Brand(fragrance.brandID, fragrance.brand)
     ])
   ).values()
 ).sort((a, b) => a.name.localeCompare(b.name));
 
-// Get fragrances, optionally filtering by brand
-
+// Retrieve fragrances, with optional filters
 function getAllFragrances(brandID, search = "") {
   let results = fragrances;
 
-  // Filter by brand
   if (brandID) {
     results = results.filter(
       fragrance =>
@@ -51,9 +58,8 @@ function getAllFragrances(brandID, search = "") {
     );
   }
 
-  // Search by fragrance name or brand
   if (search) {
-    const searchTerm = search.toLowerCase().trim();
+    const searchTerm = String(search).toLowerCase().trim();
 
     results = results.filter(fragrance =>
       fragrance.name.toLowerCase().includes(searchTerm) ||
@@ -64,19 +70,20 @@ function getAllFragrances(brandID, search = "") {
   return results;
 }
 
-// Return available brands
 function getAllBrands() {
   return brands;
 }
 
-// Find a fragrance by ID
 function getFragranceById(id) {
   return fragrances.find(
-    fragrance => String(fragrance.fragranceID) === String(id)
+    fragrance =>
+      String(fragrance.fragranceID) === String(id)
   );
 }
 
 module.exports = {
+  Brand,
+  Fragrance,
   getAllFragrances,
   getAllBrands,
   getFragranceById

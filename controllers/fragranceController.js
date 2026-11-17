@@ -30,8 +30,10 @@ exports.getFragranceDetails = (req, res) => {
   );
 
   if (!fragrance) {
-    return res.status(404).send("Fragrance not found");
-  }
+  return res.status(404).render("404", {
+    title: "ScentVault | Fragrance Not Found"
+  });
+}
 
   const reviews = reviewService
     .getReviews(fragrance.fragranceID)
